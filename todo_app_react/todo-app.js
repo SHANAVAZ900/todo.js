@@ -24,12 +24,39 @@ class TodoList extends React.Component {
         this.state = { list: props.list };
 
         this.handleAddTask = this.handleAddTask.bind(this);
-    }
+    };
+
     handleAddTask(task) {
         console.log("add task clicked");
         this.state.list.push(task);
         this.setState({ list: this.state.list })
-    }
+    };
+
+    handleDeleteTask = (taskId) => {
+        console.log('delete button clicked');
+        const list = this.state.list.filter((t) => t.id !== taskId);
+        this.setState({ list: list });
+    };
+
+
+    handleChange = (taskId) => {
+        console.log('checkbox clicked');
+        this.setState({
+            list: this.state.list.map((task) => {
+                if (task.id === taskId) {
+                    return {
+                        ...task,
+                        status: !task.status
+                    };
+                }
+                return task;
+
+            })
+        });
+    };
+
+
+
     render() {
         return (
             <div>
@@ -37,7 +64,7 @@ class TodoList extends React.Component {
                 <ol>
                     {
                         this.state.list.map((t) =>
-                            <Task key={t.id} name={t.name} dueDate={t.dueDate} />)
+                            <Task key={t.id} name={t.name} dueDate={t.dueDate} onDelete={this.handleDeleteTask} onChange={this.handleChange} task={t} />)
                     }
                 </ol>
                 <TaskNameForm onAddTask={this.handleAddTask} />
@@ -46,10 +73,12 @@ class TodoList extends React.Component {
     }
 }
 
+
+
 class TaskNameForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { value: '' };
+        this.state = { value: '', datevalue: '' };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
