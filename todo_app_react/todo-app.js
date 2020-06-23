@@ -1,5 +1,9 @@
 function Task(props) {
-    return <li>{props.name}, {props.dueDate.toLocaleTimeString()}</li>
+    return <li style={{
+
+        color: props.task.status ? "blue" : "yellow"
+
+    }}>{props.name}, {props.dueDate.toLocaleTimeString()}</li>
 }
 
 class TodoList extends React.Component {
