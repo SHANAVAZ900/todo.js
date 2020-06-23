@@ -1,7 +1,7 @@
 function Task(props) {
     return <li style={{
 
-        color: props.task.status ? "blue" : "yellow"
+        color: props.task.status ? "blue" : "violet"
 
     }}
     >
@@ -90,7 +90,8 @@ class TaskNameForm extends React.Component {
         event.preventDefault();
         const task = {
             id: Date.now(), name: this.state.value,
-            dueDate: new Date()
+            date: new Date(),
+            dueDate: this.state.datevalue
         };
         // add the task object to the task list
         this.props.onAddTask(task);
@@ -106,7 +107,11 @@ class TaskNameForm extends React.Component {
             <form onSubmit={this.handleSubmit}>
                 <input type="text" value={this.state.value}
                     onChange={this.handleChange} />
+
                 <input type="submit" value="Add Task" />
+
+                <input type="date" value={this.state.datevalue}
+                    date-format="DD MMMM YYYY" onChange={this.handleDateChange} />
             </form>
         );
     }
