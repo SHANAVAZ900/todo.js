@@ -3,7 +3,19 @@ function Task(props) {
 
         color: props.task.status ? "blue" : "yellow"
 
-    }}>{props.name}, {props.dueDate.toLocaleTimeString()}</li>
+    }}
+    >
+        {props.name}, {new Date().getDate()}/{new Date().getMonth()}, <strong>Due Date:</strong> {props.dueDate}
+
+        <input type="checkbox" onChange={() => {
+            props.onChange(props.task.id);
+        }}
+        />
+
+        <button value="Delete" onClick={() =>
+            props.onDelete(props.task.id)
+        }>Delete</button>
+    </li>
 }
 
 class TodoList extends React.Component {
